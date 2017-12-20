@@ -1,0 +1,16 @@
+{
+    "contents" : "library(\"GFD\")\ncalculateGUI()\n\n# two-sample problem\nweightgain2 <- HSAUR::weightgain[HSAUR::weightgain$type == \"High\", ]\nGFD(weightgain ~ source, data = weightgain2, nperm = 10000,\n    alpha = 0.05, plot_CI = FALSE, Title = NULL, line_width = 2)\n\nBeef <- weightgain2$weightgain[1:10]\nCereal <- weightgain[11:20, 3]\nt.test(Beef, Cereal)\n\n# one-way layout\ndata(startup)\nmodel1 <- GFD(Costs ~ company, data = startup, nperm = 10000, alpha = 0.05)\nsummary(model1)\nplot(model1)\n\n# two-way layout\nmodel2 <- GFD(weightgain ~ source * type, data = HSAUR::weightgain)\nsummary(model2)\nplot(model2)\n\n# three-way layout\ndata(\"pizza\")\nmodel3 <- GFD(Delivery ~ Crust * Coke * Bread, data = pizza)\nsummary(model3)\nplot(model3)\n\n# nested design\ndata(\"curdies\")\nnested <- GFD(dugesia ~ season + season:site, data = curdies)\nsummary(nested)\nplot(nested)\n\n",
+    "created" : 1447773750462.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1577030782",
+    "id" : "69EC25E7",
+    "lastKnownWriteTime" : 1447779463,
+    "path" : "~/Documents/Studium/02 Uni Ulm/02 Promotion/R-package/reproducibleCode_GFD.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

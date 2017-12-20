@@ -1,0 +1,16 @@
+{
+    "contents" : "# Function for calculating the means, test statistic, permutation,... ------------\nStat <- function(data, n, hypo_matrix, nperm, alpha) {\n  H <- hypo_matrix\n  x <- data\n  N <- sum(n)\n  #---------------- useful matrices ---------------------#\n  A <- t(rep(1 / n[1], n[1]))\n  A1 <- t(rep(1, n[1]))\n  for (ii in 2:length(n)) {\n    A <- magic::adiag(A, t(rep(1 / n[ii], n[ii])))\n    A1 <- magic::adiag(A1, t(rep(1, n[ii])))\n  }\n  # -----------------------------------------------------#\n  means <- A %*% x\n  x2 <- x ^ 2\n  vars <- (A1 %*% x2 - n * means ^ 2) / (n * (n - 1))\n  if (0 %in% vars) {\n    stop(\"The variance in some group equals 0!\")\n  }\n  Sn <- N * diag(c(vars))\n  # WTS\n  T <- t(H) %*% MASS::ginv(H %*% Sn %*% t(H)) %*% H\n  WTS <- N * t(means) %*% T %*% means\n  df_WTS <- Matrix::rankMatrix(H)[[1]]\n  # ATS\n  C <- t(H) %*% MASS::ginv(H %*% t(H)) %*% H\n  D <- diag(C) * diag(ncol(C))\n  spur <- sum(diag(D %*% Sn))\n  Lambda <- diag(1 / (n - 1))\n  ATS <- N / spur * t(means) %*% C %*% means\n  df_ATS1 <- spur ^ 2 / sum(diag(C %*% Sn %*% C %*% Sn))\n  df_ATS2 <- spur ^ 2 / sum(diag(D %*% D %*% Sn %*% Sn %*% Lambda))\n  \n  #----------------------------Permutation matrix--------------------#\n  Perm <- matrix(0, nrow = N, ncol = nperm)\n  for (pp in 1:nperm) {\n    Perm[, pp] <- sample(1:N)\n  }\n  xperm <- matrix(x[Perm], ncol = nperm)\n  xperm2 <- xperm ^ 2\n  meansP <- A %*% xperm\n  varsP <- (A1 %*% xperm2 - n * meansP ^ 2) / (n * (n - 1))\n  \n  #---------------------Wald-Type for permuted data ----------------#\n  WTPS <- sapply(1:nperm, function(arg) {\n    TP <- t(H) %*% MASS::ginv(H %*% (N * diag(varsP[,arg])) %*% t(H)) %*% H\n    WTPS <- diag(N * t(meansP[, arg]) %*% TP %*% meansP[, arg])\n  })\n  \n  #------------------------ p-values -------------------------------#\n  p_valueWTS <- 1 - pchisq(abs(WTS), df = df_WTS)\n  p_valueATS <- 1 - pf(abs(ATS), df1 = df_ATS1, df2 = df_ATS2)\n  ecdf_WTPS <- ecdf(WTPS)\n  p_valueWTPS <- 1 - ecdf_WTPS(WTS)\n  \n  #---------------------- CIs -------------------------------------#\n  CI_lower <- means - sqrt(vars / n) * qt(1 - alpha / 2, df = n)\n  CI_upper <- means + sqrt(vars / n) * qt(1 - alpha / 2, df = n)\n  \n  #------------------------- return results -----------------------#\n  WTS_out <- c(WTS, df_WTS, p_valueWTS)\n  ATS_out <- c(ATS, df_ATS1, df_ATS2, p_valueATS)\n  WTPS_out <- p_valueWTPS\n  CI <- cbind(CI_lower, CI_upper)\n  result <- list(WTS = WTS_out, WTPS = WTPS_out, ATS = ATS_out,\n                 Cov = vars, Mean = means, CI = CI)\n  return(result)\n}",
+    "created" : 1448868566070.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1915555572",
+    "id" : "B9A0133B",
+    "lastKnownWriteTime" : 1447236240,
+    "path" : "~/Documents/Studium/02 Uni Ulm/02 Promotion/R-package/GFD/R/calculate_statistics.R",
+    "project_path" : "R/calculate_statistics.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

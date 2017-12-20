@@ -1,0 +1,16 @@
+{
+    "contents" : "## Resubmission\nThis is a resubmission. In this version I have:\n\n* Converted the DESCRIPTION title to title case.\n* Deleted the 'Namespace' entry in the DESCRIPTION.\n* Changed the DESCRIPTION field.\n\n========================================================\n## Test environments\n* local x86_64-suse-linux-gnu (64-bit), R 3.2.2\n* win-builder (devel and release)\n\n## R CMD check results\nThere were no ERRORs, WARNINGs or NOTEs.\n\n## This is the first submission of package GFD.\n",
+    "created" : 1447844927396.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "821486909",
+    "id" : "830CFDAE",
+    "lastKnownWriteTime" : 1447857569,
+    "path" : "~/Documents/Studium/02 Uni Ulm/02 Promotion/R-package/GFD/cran-comments.md",
+    "project_path" : "cran-comments.md",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "markdown"
+}
