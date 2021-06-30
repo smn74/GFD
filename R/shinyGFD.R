@@ -1,20 +1,21 @@
 #' A shiny app for the package GFD
 #'
 #' This function provides a shiny app for calculating
-#' GFD and QANOVAA test statistics and respective p-values.
+#' GFD and QANOVA test statistics and respective p-values.
 #'
-#'
+#'@author Philipp Steinhauer
 #'
 #'
 #' @aliases GFDsurvGUI
 #'
 #'
 #' @import shiny
-#' @import shinyjs
 #' @import utils
 #' @importFrom tippy tippy_this
 #' @importFrom shinythemes shinytheme
 #' @importFrom shinyWidgets numericInputIcon
+#' @importFrom shinyjs useShinyjs hide hidden show
+#' @importFrom stats as.formula qnorm pbinom bw.nrd0
 #' @export
 
 GFD_GUI <- function() {
@@ -200,9 +201,8 @@ GFD_GUI <- function() {
                                   
                                   tippy::tippy_this("infoButton3", "Method for the variance estimation of the sample quantiles
                                   can be chosen:<br><br>
-                                              - the interval-based estimator of Price and Bonett (2001)
-                                              <br><br>
-                                              - Efron´s bootstrap method  <br><br> - kernel density approach"
+                                              - the interval-based estimator of Price and Bonett (2001) <br><br>
+                                              - Efron's bootstrap method  <br><br> - kernel density approach"
                                                     , placement = "right"),
                                   shinyjs::hidden(
                                     numericInput("alpha2", "confidence level", value = 0.95,min = 0, max = 1)

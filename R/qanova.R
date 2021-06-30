@@ -39,22 +39,25 @@
 #'   the second one is based on a permutation procedure.
 #'
 #'  @return A \code{qanova} object containing the following components:
+#'  \itemize{
 #'  \item{pvalues_stat}{The p-values obtained by \eqn{\chi^2}-approximation}
 #'  \item{pvalues_per}{The p-values of the permutation approach}
 #'  \item{statistics}{The value of the qanova along with degrees of freedom of the
 #'  central chi-square distribution and p-value, as well as the p-value of the
 #'   permutation procedure.}
-#'  \item{nperm}{The number of permutations used for calculating the permuted p-value.
+#'  \item{nperm}{The number of permutations used for calculating the permuted p-value.}
+#'}
 #'
 #' @examples
-#' library(HSAUR)
-#' QANOVA(weightgain ~ source*type, data = HSAUR::weightgain,var_method = "interval", nperm =1999)
+#' QANOVA(weightgain ~ source*type, data = HSAUR::weightgain,var_method = "interval", nperm =199)
 #' 
 #' @references Ditzhaus, M., Fried, R. and Pauly, M. (2021). QANOVA: Quantile-based Permutation Methods For General
 #' Factorial Designs. TEST (to appear, ArXiv preprint arXiv:1912.09146).
 #' Efron, B. (1979). Bootstrap methods: Another look at the jackknife. Ann. Statist., 7:1-26.
 #' Price, R. and Bonett, D. (2001). Estimating the variance of the sample median. J. Stat. Comput.
 #' Simul, 68:295-305.
+#' 
+#' @author Philipp Steinhauer
 #'
 #' @importFrom  MASS ginv
 #' @import plyr
@@ -244,7 +247,7 @@ QANOVA <- function(formula, data = NULL, quantiles = c(0.5),lin_mat = NULL,
                      .drop = F)$Measure
 
     if (length(fac_names) != nf && 2 %in% nr_hypo) {
-      stop("A model involving both nested and crossed factors is\n           not impemented!")
+      stop("A model involving both nested and crossed factors is\n           not implemented!")
     }
     if (length(fac_names) == nf && nf >= 4) {
       stop("Four- and higher way nested designs are\n           not implemented!")

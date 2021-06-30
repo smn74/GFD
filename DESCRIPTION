@@ -3,7 +3,7 @@ Type: Package
 Title: Tests for General Factorial Designs
 Version: 0.3.1
 Date: 2021-04-19
-Author: Sarah Friedrich, Frank Konietschke, Markus Pauly, Philipp Steinhauer
+Author: Sarah Friedrich, Frank Konietschke, Markus Pauly, Marc Ditzhaus, Philipp Steinhauer
 Maintainer: Sarah Friedrich <sarah.friedrich@med.uni-goettingen.de>
 Depends: 
     R (>= 3.3)
